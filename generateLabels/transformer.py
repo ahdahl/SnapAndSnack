@@ -24,12 +24,14 @@ class Transformer(object):
 
     def to_darknet_format(self, annotation, classes):
         result = []
+        name = self.xml_dir[:-5].split("/")[-1]
+        print(name, classes[name])
         for obj in annotation.objects:
             # if obj.name not in classes:
             #     print("Please, add '%s' to classes.txt file." % obj.name)
             #     exit()
             x, y, width, height = self.get_object_params(obj, annotation.size)
-            result.append("%d %.6f %.6f %.6f %.6f" % (classes["banana"], x, y, width, height))
+            result.append("%d %.6f %.6f %.6f %.6f" % (classes[name], x, y, width, height))
         return "\n".join(result)
 
     @staticmethod
